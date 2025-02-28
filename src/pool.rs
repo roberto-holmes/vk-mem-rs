@@ -9,12 +9,12 @@ use crate::PoolCreateInfo;
 use ash::vk;
 use ash::VkResult;
 #[derive(Clone, Copy)]
-pub struct PoolHandle(ffi::VmaPool);
+pub struct PoolHandle(pub ffi::VmaPool);
 
 /// Represents custom memory pool handle.
 pub struct AllocatorPool {
-    allocator: Arc<Allocator>,
-    pub(crate) pool: PoolHandle,
+    pub allocator: Arc<Allocator>,
+    pub pool: PoolHandle,
 }
 unsafe impl Send for AllocatorPool {}
 unsafe impl Sync for AllocatorPool {}

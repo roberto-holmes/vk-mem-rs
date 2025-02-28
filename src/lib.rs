@@ -2,7 +2,7 @@
 
 mod definitions;
 mod defragmentation;
-mod ffi;
+pub mod ffi;
 mod pool;
 mod virtual_block;
 pub use definitions::*;
@@ -17,7 +17,7 @@ use std::mem;
 /// Main allocator object
 pub struct Allocator {
     /// Pointer to internal VmaAllocator instance
-    internal: ffi::VmaAllocator,
+    pub internal: ffi::VmaAllocator,
 }
 
 // Allocator is internally thread safe unless AllocatorCreateFlags::EXTERNALLY_SYNCHRONIZED is used (then you need to add synchronization!)
@@ -41,7 +41,7 @@ unsafe impl Sync for Allocator {}
 ///
 /// Some kinds allocations can be in lost state.
 #[derive(Clone, Copy, Debug)]
-pub struct Allocation(ffi::VmaAllocation);
+pub struct Allocation(pub ffi::VmaAllocation);
 unsafe impl Send for Allocation {}
 unsafe impl Sync for Allocation {}
 
