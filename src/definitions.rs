@@ -407,7 +407,7 @@ pub struct AllocatorCreateInfo<'a> {
 
     /// Custom CPU memory allocation callbacks. Optional.
     /// When specified, will also be used for all CPU-side memory allocations.
-    pub allocation_callbacks: Option<&'a vk::AllocationCallbacks<'a>>,
+    pub allocation_callbacks: Option<&'a vk::AllocationCallbacks>,
 
     /// Informative callbacks for [`vk::AllocateMemory`], [`vk::FreeMemory`]. Optional.
     pub device_memory_callbacks: Option<&'a ffi::VmaDeviceMemoryCallbacks>,
@@ -517,7 +517,7 @@ impl<'a> PoolCreateInfo<'a> {
             p_next: self.memory_allocate_next,
             ..Default::default()
         };
-        let info = info.push_next(next);
+        let info = unsafe { info.extend(next) };
         self.memory_allocate_next = info.p_next;
     }
 }
@@ -757,7 +757,7 @@ pub struct VirtualBlockCreateInfo<'a> {
     pub flags: VirtualBlockCreateFlags,
     /// Custom CPU memory allocation callbacks. Optional.
     /// When specified, they will be used for all CPU-side memory allocations.
-    pub allocation_callbacks: Option<&'a vk::AllocationCallbacks<'a>>,
+    pub allocation_callbacks: Option<&'a vk::AllocationCallbacks>,
 }
 
 /// Parameters of `VirtualAllocation` objects, that can be retrieved using `VirtualBlock::get_allocation_info`.

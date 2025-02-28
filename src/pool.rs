@@ -6,8 +6,8 @@ use crate::Allocation;
 use crate::AllocationCreateInfo;
 use crate::Allocator;
 use crate::PoolCreateInfo;
-use ash::prelude::VkResult;
 use ash::vk;
+use ash::VkResult;
 #[derive(Clone, Copy)]
 pub struct PoolHandle(ffi::VmaPool);
 
