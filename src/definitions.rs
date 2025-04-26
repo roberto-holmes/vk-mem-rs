@@ -629,7 +629,7 @@ impl From<&AllocationCreateInfo> for ffi::VmaAllocationCreateInfo {
 }
 
 /// Parameters of `Allocation` objects, that can be retrieved using `Allocator::get_allocation_info`.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct AllocationInfo {
     /// Memory type index that this allocation was allocated from. It never changes.
     pub memory_type: u32,
